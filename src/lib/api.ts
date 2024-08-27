@@ -131,6 +131,8 @@ export class ApiClient {
   }
 }
 
-const apiClient = new ApiClient({ baseUrl: 'http://localhost:3300/api' });
+const apiClient = new ApiClient({
+  baseUrl: 'https://scissors-api-3ypq.onrender.com/api',
+});
 
 export default apiClient;

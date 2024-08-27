@@ -11,7 +11,8 @@ import toast from 'react-hot-toast';
 
 const UrlCard = ({ url }: { url: any }) => {
   const handleCopy = () => {
-    navigator.clipboard.writeText(url.shortenedUrl);
+    const redirectUrl = `${window.location.origin}/${url.shortenedUrl}`;
+    navigator.clipboard.writeText(redirectUrl);
     toast.success('URL copied to clipboard');
   };
 
@@ -25,15 +26,14 @@ const UrlCard = ({ url }: { url: any }) => {
   };
 
   const handleRedirect = async () => {
-    window.open(`/api/urls/redirect/${url.shortenedUrl}`, '_blank');
-    // try {
-    //   const response = await apiClient.get(
-    //     `/urls/redirect/${url.shortenedUrl}`
-    //   );
-    //   window.open((response as any).originalUrl, '_blank');
-    // } catch (error: any) {
-    //   toast.error('Failed to redirect to the URL');
-    // }
+    try {
+      const response = await apiClient.get(
+        `/urls/redirect/${url.shortenedUrl}`
+      );
+      window.open((response as any).originalUrl, '_blank');
+    } catch (error: any) {
+      toast.error('Failed to redirect to the URL');
+    }
   };
 
   return (
