@@ -24,7 +24,7 @@ export default function RootLayout({
         <body className={inter.className}>
           <Suspense>
             <Navbar />
-            <main className="w-full max-w-5xl">{children}</main>
+            <main className="w-full max-w-5xl mx-auto">{children}</main>
             <Toaster />
           </Suspense>
         </body>
