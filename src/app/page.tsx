@@ -140,10 +140,10 @@ const Home = () => {
         </div>
 
         <div className="w-full max-w-4xl">
-          <h2 className="font-bold text-3xl md:text-5xl text-blue-600">
+          <h2 className="font-bold text-3xl md:text-5xl text-blue-600 my-2">
             Hoho!
           </h2>
-          <p>
+          <p className="text-sm">
             Here are your shortened URLs! Now start rick-rolling your friends 😎
           </p>
           <div className="h-full flex flex-wrap justify-center items-center gap-3 sm:gap-5 py-5">
