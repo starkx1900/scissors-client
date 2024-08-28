@@ -28,7 +28,7 @@ export class ApiClient {
     }
   }
 
-  private getTokenFromLocalStorage(): string | undefined {
+  getTokenFromLocalStorage(): string | undefined {
     if (typeof window === 'undefined') {
       return undefined;
     }
@@ -105,11 +105,15 @@ export class ApiClient {
   }
 
   async login(email: string, password: string): Promise<void> {
-    const response = await this.post<{ token: string }>('/auth/login', {
-      email,
-      password,
-    });
-    this.setToken((response as any).data.token);
+    const response = await this.post<{ data: { token: string; user: any } }>(
+      '/auth/login',
+      {
+        email,
+        password,
+      }
+    );
+    this.setToken(response.data.token);
+    this.setUserInfo(response.data.user);
   }
 
   async signup(name: string, email: string, password: string): Promise<void> {
@@ -121,9 +125,29 @@ export class ApiClient {
     this.setToken(response.token);
   }
 
+  setUserInfo(user: any) {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+  }
+
+  getUserInfo(): any {
+    if (typeof window === 'undefined') {
+      return null;
+    }
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
+
+  clearUserInfo() {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('user');
+    }
+  }
+
   logout(): void {
     this.clearToken();
-    // Optionally, you can also send a request to the server to invalidate the token
+    this.clearUserInfo();
   }
 
   isAuthenticated(): boolean {

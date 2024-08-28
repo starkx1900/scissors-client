@@ -21,7 +21,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import apiClient from '@/lib/api';
+import { useAuth } from '@/context/AuthContext';
 import useRedirectIfAuthenticated from '@/lib/hooks/useRedirectIfAuthenticated';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader } from 'lucide-react';
@@ -38,6 +38,7 @@ const LoginSchema = z.object({
 
 const LoginPage = () => {
   const isAuthLoading = useRedirectIfAuthenticated();
+  const { login } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -53,7 +54,7 @@ const LoginPage = () => {
   const onSubmit = async (data: z.infer<typeof LoginSchema>) => {
     setLoading(true);
     try {
-      await apiClient.login(data.email, data.password);
+      await login(data.email, data.password);
       toast.success('Log in successful');
       router.push('/');
     } catch (error: any) {

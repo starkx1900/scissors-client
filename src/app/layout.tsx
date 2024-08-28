@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar';
+import { AuthProvider } from '@/context/AuthContext';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Suspense } from 'react';
@@ -18,14 +19,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Suspense>
-          <Navbar />
-          <main className="w-full max-w-5xl">{children}</main>
-          <Toaster />
-        </Suspense>
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <Suspense>
+            <Navbar />
+            <main className="w-full max-w-5xl">{children}</main>
+            <Toaster />
+          </Suspense>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

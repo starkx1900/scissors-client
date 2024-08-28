@@ -1,6 +1,7 @@
 'use client';
 
 import LoadingSpinner from '@/app/loading';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import UrlDetail from '@/components/UrlDetail';
 import apiClient from '@/lib/api';
 import { useParams, useRouter } from 'next/navigation';
@@ -41,7 +42,11 @@ const UrlDetailPage = () => {
     return <UrlNotFound />;
   }
 
-  return <UrlDetail url={urlData} />;
+  return (
+    <ProtectedRoute>
+      <UrlDetail url={urlData} />;
+    </ProtectedRoute>
+  );
 };
 
 export default UrlDetailPage;

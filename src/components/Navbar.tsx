@@ -1,9 +1,11 @@
 'use client';
 
-import apiClient from '@/lib/api';
+import { useAuth } from '@/context/AuthContext';
 import { LogOut, Scissors } from 'lucide-react';
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
+
   return (
     <nav className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
       <div className="flex w-full items-center justify-between border-b border-gray-300 bg-gradient-to-b from-zinc-200 px-2 sm:px-4 pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto  lg:rounded-xl lg:border ">
@@ -12,18 +14,20 @@ const Navbar = () => {
           SCISSORS
         </span>
 
-        <div className="flex font-bold gap-1">
-          <span>Welcome,</span>
-          {/* <span className="flex gap-2"> */}
-          {/* <User size={20} className="text-blue-600" /> */}
-          {'User Name'}
-          {/* </span> */}
-          <LogOut
-            onClick={() => apiClient.logout()}
-            size={20}
-            className="ml-4 text-red-600 cursor-pointer"
-          />
-        </div>
+        {user && (
+          <div className="flex font-bold gap-1">
+            <span>Welcome,</span>
+            {/* <span className="flex gap-2"> */}
+            {/* <User size={20} className="text-blue-600" /> */}
+            {user.name}
+            {/* </span> */}
+            <LogOut
+              onClick={logout}
+              size={20}
+              className="ml-4 text-red-600 cursor-pointer"
+            />
+          </div>
+        )}
       </div>
     </nav>
   );
