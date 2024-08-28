@@ -52,7 +52,7 @@ const UrlCard = ({ url }: { url: any }) => {
       </h2>
       <p className="m-0 max-w-[30ch] text-sm opacity-50">{url.originalUrl}</p>
       <div className="mt-4 flex items-center justify-between">
-        <span className="flex items-center">
+        <span className="flex items-center text-nowrap">
           <MousePointerClick className="mr-1" /> {url.clicks} clicks
         </span>
         <div className="flex items-center space-x-4">
